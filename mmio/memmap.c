@@ -105,7 +105,7 @@ int main (int argc, char *argv[])
 	diff = clock() - start;
 	
 	int msec = diff * 1000 / CLOCKS_PER_SEC;
-	printf("Time taken %d seconds %d milliseconds", msec/1000, msec%1000);
+	printf("Time taken %d seconds %d milliseconds\n", msec/1000, msec%1000);
     //*dst = *src;
 } 
 
