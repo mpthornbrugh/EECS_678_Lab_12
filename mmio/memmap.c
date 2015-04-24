@@ -66,6 +66,7 @@ int main (int argc, char *argv[])
   /* 
    * 2. go to the location corresponding to the last byte 
    */
+	
 	if (lseek(fdin, statbuf.st_size, SEEK_SET) < 0)	{
 		sprintf(buf, "Couldn't move to end of file");
 		perror(buf);
