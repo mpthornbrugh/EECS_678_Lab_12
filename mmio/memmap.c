@@ -57,22 +57,39 @@ int main (int argc, char *argv[])
   /* 
    * 1. find size of input file 
    */
+	if (fstat(fdin, &statbuf) < 0)	{
+		sprintf(buf, "can't find size of file");
+		perror(buf);
+		exit(errno);
+	}
 
   /* 
    * 2. go to the location corresponding to the last byte 
    */
+	if (lseek(fdin, statbuf.st_size) < 0)	{
+		sprintf(buf, "Couldn't move to end of file");
+		perror(buf);
+		exit(errno);
+	}
 
   /* 
    * 3. write a dummy byte at the last location 
    */
+	if (write(fdin, "\0") < 0)	{
+		sprintf(buf, "Couldn't write dummy byte.");
+		perror(buf);
+		exit(errno);
+	}
 
   /* 
    * 4. mmap the input file 
    */
+	src = mmap(0, statbuf.st_size, PROT_READ, MAP_SHARED, fdin, 0);
 
   /* 
    * 5. mmap the output file 
    */
+	dst = mmap(0, statbuf.st_size, PROT_READ | PROT_WRITE, MAP_SHARED, fdout, 0);
 
   /* 
    * 6. copy the input file to the output file 
@@ -81,7 +98,8 @@ int main (int argc, char *argv[])
      * stores what is in the memory location pointed to by src into
      * the memory location pointed to by dest.
      */
-    *dst = *src;
+	memcpy(dst, src, statbuf.st_size);
+    //*dst = *src;
 } 
 
 
