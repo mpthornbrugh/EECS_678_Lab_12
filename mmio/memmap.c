@@ -67,7 +67,7 @@ int main (int argc, char *argv[])
    * 2. go to the location corresponding to the last byte 
    */
 	
-	if (lseek(fdin, statbuf.st_size, SEEK_SET) < 0)	{
+	if (lseek(fdout, statbuf.st_size, SEEK_SET) < 0)	{
 		sprintf(buf, "Couldn't move to end of file");
 		perror(buf);
 		exit(errno);
@@ -76,7 +76,7 @@ int main (int argc, char *argv[])
   /* 
    * 3. write a dummy byte at the last location 
    */
-	if (write(fdin, "\0", 1) < 0)	{
+	if (write(fdout, "\0", 1) < 0)	{
 		sprintf(buf, "Couldn't write dummy byte.");
 		perror(buf);
 		exit(errno);
