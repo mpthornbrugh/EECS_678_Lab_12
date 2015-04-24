@@ -30,6 +30,8 @@ int main (int argc, char *argv[])
   int fdin, fdout, i;
   char *src, *dst, buf[256];
   struct stat statbuf;
+	
+	time_t start, end;
 
   src = dst = NULL;
 
@@ -99,7 +101,10 @@ int main (int argc, char *argv[])
      * stores what is in the memory location pointed to by src into
      * the memory location pointed to by dest.
      */
+	start = clock();
 	memcpy(dst, src, statbuf.st_size);
+	end = clock();
+	printf((start - end)\CLOCKS_PER_SEC);
     //*dst = *src;
 } 
 
