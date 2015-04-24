@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <time.h>
 
 void err_quit (const char * mesg)
 {
@@ -101,10 +102,12 @@ int main (int argc, char *argv[])
      * stores what is in the memory location pointed to by src into
      * the memory location pointed to by dest.
      */
-	start = clock();
+	clock_t start = clock(), diff;
 	memcpy(dst, src, statbuf.st_size);
-	end = clock();
-	printf((start - end)\CLOCKS_PER_SEC);
+	diff = clock() - start;
+	
+	int msec = diff * 1000 / CLOCKS_PER_SEC;
+	printf("Time taken %d seconds %d milliseconds", msec/1000, msec%1000);
     //*dst = *src;
 } 
 
