@@ -31,8 +31,6 @@ int main (int argc, char *argv[])
   int fdin, fdout, i;
   char *src, *dst, buf[256];
   struct stat statbuf;
-	
-	time_t start, end;
 
   src = dst = NULL;
 
